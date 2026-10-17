@@ -1,0 +1,50 @@
+@layer gpmh.tokens {
+  :root {
+    color-scheme: light;
+
+    --gpmh-color-neutral-0: #ffffff;
+    --gpmh-color-neutral-50: #f8f8f8;
+    --gpmh-color-neutral-100: #f0f0f0;
+    --gpmh-color-neutral-200: #dedede;
+    --gpmh-color-neutral-300: #c4c4c4;
+    --gpmh-color-neutral-400: #969696;
+    --gpmh-color-neutral-500: #6b6b6b;
+    --gpmh-color-neutral-600: #4c4c4c;
+    --gpmh-color-neutral-700: #303030;
+    --gpmh-color-neutral-800: #1f1f1f;
+    --gpmh-color-neutral-900: #111111;
+
+    --gpmh-color-canvas: var(--gpmh-color-neutral-0);
+    --gpmh-color-surface: var(--gpmh-color-neutral-0);
+    --gpmh-color-surface-subtle: var(--gpmh-color-neutral-50);
+    --gpmh-color-text: var(--gpmh-color-neutral-900);
+    --gpmh-color-text-subtle: var(--gpmh-color-neutral-500);
+    --gpmh-color-border: var(--gpmh-color-neutral-200);
+    --gpmh-color-border-strong: var(--gpmh-color-neutral-900);
+    --gpmh-color-action: var(--gpmh-color-neutral-900);
+    --gpmh-color-on-action: var(--gpmh-color-neutral-0);
+    --gpmh-color-danger: #c9362b;
+    --gpmh-color-on-danger: var(--gpmh-color-neutral-0);
+    --gpmh-color-focus: var(--gpmh-color-neutral-900);
+
+    --gpmh-space-1: 4px;
+    --gpmh-space-2: 8px;
+    --gpmh-space-3: 12px;
+    --gpmh-space-4: 16px;
+    --gpmh-space-5: 20px;
+    --gpmh-space-6: 24px;
+    --gpmh-space-8: 32px;
+    --gpmh-space-10: 40px;
+    --gpmh-space-12: 48px;
+
+    --gpmh-radius-none: 0px;
+    --gpmh-radius-sm: 6px;
+    --gpmh-radius-md: 10px;
+    --gpmh-radius-lg: 16px;
+    --gpmh-radius-pill: 999px;
+
+    --gpmh-font-sans: Pretendard Variable, Pretendard, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --gpmh-shadow-card: 0 8px 30px rgb(17 17 17 / 5%);
+    --gpmh-shadow-raised: 0 20px 50px rgb(17 17 17 / 9%);
+  }
+}
