@@ -1,0 +1,103 @@
+@layer gpmh.components {
+  .gpmh-button {
+    align-items: center;
+    appearance: none;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--gpmh-radius-sm);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: var(--gpmh-font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    gap: var(--gpmh-space-2);
+    justify-content: center;
+    line-height: 1.25;
+    transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, color 160ms ease, transform 160ms ease;
+  }
+
+  .gpmh-button:focus-visible {
+    outline: 2px solid var(--gpmh-color-focus);
+    outline-offset: 3px;
+  }
+
+  .gpmh-button:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  .gpmh-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.48;
+  }
+
+  .gpmh-button[data-size='sm'] {
+    min-height: 32px;
+    padding: 7px 10px;
+  }
+
+  .gpmh-button[data-size='md'] {
+    min-height: 40px;
+    padding: 10px 16px;
+  }
+
+  .gpmh-button[data-size='lg'] {
+    min-height: 48px;
+    padding: 13px 20px;
+  }
+
+  .gpmh-button[data-variant='primary'] {
+    background: var(--gpmh-color-action);
+    color: var(--gpmh-color-on-action);
+  }
+
+  .gpmh-button[data-variant='primary']:hover:not(:disabled) {
+    background: var(--gpmh-color-neutral-700);
+  }
+
+  .gpmh-button[data-variant='secondary'] {
+    background: var(--gpmh-color-surface);
+    border-color: var(--gpmh-color-border);
+    color: var(--gpmh-color-text);
+  }
+
+  .gpmh-button[data-variant='secondary']:hover:not(:disabled),
+  .gpmh-button[data-variant='ghost']:hover:not(:disabled) {
+    background: var(--gpmh-color-surface-subtle);
+  }
+
+  .gpmh-button[data-variant='ghost'] {
+    color: var(--gpmh-color-text);
+  }
+
+  .gpmh-button[data-variant='danger'] {
+    background: var(--gpmh-color-danger);
+    color: var(--gpmh-color-on-danger);
+  }
+
+  .gpmh-button[data-variant='danger']:hover:not(:disabled) {
+    background: #a92720;
+  }
+
+  .gpmh-button__spinner {
+    animation: gpmh-spin 700ms linear infinite;
+    border: 2px solid currentcolor;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    height: 14px;
+    width: 14px;
+  }
+
+  @keyframes gpmh-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gpmh-button,
+    .gpmh-button__spinner {
+      animation-duration: 0.01ms;
+      transition-duration: 0.01ms;
+    }
+  }
+}
