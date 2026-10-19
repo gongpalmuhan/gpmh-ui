@@ -1,5 +1,15 @@
 import { useState } from 'react';
-import { Button, type ButtonVariant } from '@gpmh/ui';
+import {
+  Badge,
+  Button,
+  Checkbox,
+  Dialog,
+  Input,
+  Select,
+  Switch,
+  Textarea,
+  type ButtonVariant
+} from '@gpmh/ui';
 
 const neutrals = [
   ['0', '#FFFFFF'],
@@ -32,6 +42,8 @@ function Mark() {
 export function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('아직 저장하지 않았습니다.');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isPublic, setIsPublic] = useState(false);
 
   function simulateSave() {
     setIsLoading(true);
@@ -56,8 +68,9 @@ export function App() {
           <a href="#principles">Principles</a>
           <p className="nav-label nav-label--space">COMPONENTS</p>
           <a className="is-active" href="#button">Button <small>01</small></a>
-          <a href="#coming">Input <small>02</small></a>
-          <a href="#coming">Dialog <small>03</small></a>
+          <a href="#input">Input <small>02</small></a>
+          <a href="#controls">Controls <small>03</small></a>
+          <a href="#dialog">Dialog <small>04</small></a>
         </nav>
 
         <p className="sidebar-foot">v0.1.0 · foundation</p>
@@ -146,12 +159,106 @@ export function App() {
           </div>
         </section>
 
+        <section className="section component-section" id="input" aria-labelledby="input-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">COMPONENT / 02</p>
+              <h2 id="input-title">Input &amp; Textarea</h2>
+            </div>
+            <code>@gpmh/ui</code>
+          </div>
+
+          <div className="form-stage">
+            <div className="stage-copy">
+              <p className="stage-label">FIELD STATES</p>
+              <h3>입력에 필요한<br />맥락을 함께.</h3>
+              <p>Label, description, error를 컴포넌트에 함께 두어 연결 관계와 기본 간격을 일관되게 유지합니다.</p>
+            </div>
+            <div className="form-preview">
+              <Input label="프로젝트 이름" placeholder="예: 2027 만다라트" description="나중에 대시보드에서 표시되는 이름입니다." />
+              <Textarea label="한 줄 소개" placeholder="이 프로젝트를 어떤 목적으로 만들고 있나요?" description="최대 160자를 권장합니다." />
+              <Input label="공개 링크" defaultValue="manda.gongpalmuhan.com" error="이미 사용 중인 링크입니다." />
+            </div>
+          </div>
+        </section>
+
+        <section className="section component-section" id="controls" aria-labelledby="controls-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">COMPONENT / 03</p>
+              <h2 id="controls-title">Selection controls</h2>
+            </div>
+            <code>native first</code>
+          </div>
+
+          <div className="control-grid">
+            <article className="control-card">
+              <p className="stage-label">SELECT</p>
+              <Select label="기본 보기" defaultValue="focus">
+                <option value="focus">핵심 만다라트</option>
+                <option value="full">전체 만다라트</option>
+                <option value="recent">최근 수정한 항목</option>
+              </Select>
+            </article>
+            <article className="control-card control-card--stack">
+              <p className="stage-label">CHECKBOX</p>
+              <Checkbox defaultChecked description="작성 중인 내용도 다른 사람에게 보입니다.">링크로 공개하기</Checkbox>
+            </article>
+            <article className="control-card control-card--stack">
+              <p className="stage-label">SWITCH</p>
+              <Switch checked={isPublic} onChange={(event) => setIsPublic(event.target.checked)} description={isPublic ? '현재 공개 상태입니다.' : '현재 비공개 상태입니다.'}>공개 프로필</Switch>
+            </article>
+          </div>
+
+          <div className="badge-row" aria-label="Badge variants">
+            <Badge>초안</Badge>
+            <Badge variant="success">완료</Badge>
+            <Badge variant="warning">검토 필요</Badge>
+            <Badge variant="danger">오류</Badge>
+            <Badge variant="info">새 소식</Badge>
+          </div>
+        </section>
+
+        <section className="section component-section" id="dialog" aria-labelledby="dialog-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">COMPONENT / 04</p>
+              <h2 id="dialog-title">Dialog</h2>
+            </div>
+            <code>focus managed</code>
+          </div>
+
+          <div className="dialog-preview">
+            <div>
+              <p className="stage-label">OVERLAY</p>
+              <h3>멈추고 확인해야 할<br />순간을 위한 창.</h3>
+              <p>ESC, 포커스 순환, 닫힌 뒤 원래 위치로의 포커스 복귀를 기본으로 다룹니다.</p>
+            </div>
+            <Button onClick={() => setIsDialogOpen(true)}>삭제 Dialog 열기</Button>
+          </div>
+        </section>
+
         <section className="coming" id="coming">
           <span>UP NEXT</span>
-          <h2>Input · Field · Dialog</h2>
-          <p>실제 Mandalart와 다음 GPMH 프로젝트에서 필요한 순간부터 추가합니다.</p>
+          <h2>Tabs · Toast · Tooltip</h2>
+          <p>다음 실제 사용 사례를 기준으로 상호작용 컴포넌트를 확장합니다.</p>
         </section>
       </section>
+
+      <Dialog
+        isOpen={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+        title="이 만다라트를 삭제할까요?"
+        description="삭제한 내용은 복구할 수 없습니다."
+        footer={
+          <>
+            <Button variant="secondary" onClick={() => setIsDialogOpen(false)}>취소</Button>
+            <Button variant="danger" onClick={() => setIsDialogOpen(false)}>삭제하기</Button>
+          </>
+        }
+      >
+        <p className="dialog-body-copy">목표와 세부 목표, 연결된 기록이 모두 삭제됩니다.</p>
+      </Dialog>
     </main>
   );
 }
