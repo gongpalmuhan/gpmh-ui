@@ -2,12 +2,32 @@ import { useState } from 'react';
 import {
   Badge,
   Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
   Checkbox,
   Dialog,
   Input,
+  Pagination,
   Select,
   Switch,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
   Textarea,
+  ToastProvider,
+  Tooltip,
+  useToast,
   type ButtonVariant
 } from '@gpmh/ui';
 
@@ -29,6 +49,17 @@ const variants: Array<{ variant: ButtonVariant; label: string; note: string }> =
   { variant: 'danger', label: '삭제하기', note: '되돌리기 어려운 행동' }
 ];
 
+const projects = [
+  { name: '2027 만다라트', updated: '방금 전', owner: '해원', status: '작성 중', variant: 'warning' },
+  { name: '독립 출판 노트', updated: '12분 전', owner: '혜진', status: '검토 필요', variant: 'info' },
+  { name: 'GPMH Admin', updated: '어제', owner: '해원', status: '완료', variant: 'success' },
+  { name: '우리 동네 지도', updated: '2일 전', owner: '민재', status: '초안', variant: 'neutral' },
+  { name: '영화 기록장', updated: '3일 전', owner: '해원', status: '오류', variant: 'danger' },
+  { name: '루틴 실험실', updated: '5일 전', owner: '소연', status: '검토 필요', variant: 'info' },
+  { name: '포트폴리오 2027', updated: '6일 전', owner: '해원', status: '작성 중', variant: 'warning' },
+  { name: '후보 아이디어', updated: '1주 전', owner: '해원', status: '초안', variant: 'neutral' }
+] as const;
+
 function Mark() {
   return (
     <span className="mark" aria-hidden="true">
@@ -39,11 +70,15 @@ function Mark() {
   );
 }
 
-export function App() {
+function Documentation() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('아직 저장하지 않았습니다.');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isPublic, setIsPublic] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { toast } = useToast();
+  const pageSize = 3;
+  const pagedProjects = projects.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   function simulateSave() {
     setIsLoading(true);
@@ -71,6 +106,9 @@ export function App() {
           <a href="#input">Input <small>02</small></a>
           <a href="#controls">Controls <small>03</small></a>
           <a href="#dialog">Dialog <small>04</small></a>
+          <a href="#tabs">Tabs <small>05</small></a>
+          <a href="#feedback">Toast / Tooltip <small>06</small></a>
+          <a href="#data-display">Data display <small>07</small></a>
         </nav>
 
         <p className="sidebar-foot">v0.1.0 · foundation</p>
@@ -238,10 +276,127 @@ export function App() {
           </div>
         </section>
 
-        <section className="coming" id="coming">
-          <span>UP NEXT</span>
-          <h2>Tabs · Toast · Tooltip</h2>
-          <p>다음 실제 사용 사례를 기준으로 상호작용 컴포넌트를 확장합니다.</p>
+        <section className="section component-section" id="tabs" aria-labelledby="tabs-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">COMPONENT / 05</p>
+              <h2 id="tabs-title">Tabs</h2>
+            </div>
+            <code>keyboard ready</code>
+          </div>
+
+          <div className="tabs-preview">
+            <div className="tabs-copy">
+              <p className="stage-label">SECTIONS</p>
+              <h3>같은 맥락 안의<br />내용을 조용히 나누기.</h3>
+              <p>Arrow key, Home, End로 탭 사이를 이동할 수 있고 선택된 패널만 보입니다.</p>
+            </div>
+            <Tabs defaultValue="overview">
+              <TabsList aria-label="프로젝트 정보">
+                <TabsTrigger value="overview">개요</TabsTrigger>
+                <TabsTrigger value="activity">활동</TabsTrigger>
+                <TabsTrigger value="members">멤버</TabsTrigger>
+              </TabsList>
+              <TabsContent value="overview" className="tab-panel-demo">
+                <strong>이번 주의 흐름</strong>
+                <p>세 개의 목표가 진행 중이고, 한 개의 목표는 검토를 기다리고 있습니다.</p>
+              </TabsContent>
+              <TabsContent value="activity" className="tab-panel-demo">
+                <strong>최근 변경</strong>
+                <p>오늘 오전 10:42에 ‘핵심 만다라트’의 우선순위가 조정되었습니다.</p>
+              </TabsContent>
+              <TabsContent value="members" className="tab-panel-demo">
+                <strong>함께하는 사람</strong>
+                <p>해원, 혜진, 민재 세 명이 이 프로젝트를 편집할 수 있습니다.</p>
+              </TabsContent>
+            </Tabs>
+          </div>
+        </section>
+
+        <section className="section component-section" id="feedback" aria-labelledby="feedback-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">COMPONENT / 06</p>
+              <h2 id="feedback-title">Toast &amp; Tooltip</h2>
+            </div>
+            <code>brief feedback</code>
+          </div>
+
+          <div className="feedback-grid">
+            <article className="feedback-card">
+              <p className="stage-label">TOAST</p>
+              <h3>사라져도 되는<br />결과 알림.</h3>
+              <p>작업 흐름을 가로막지 않고, 필요한 결과만 잠시 알려줍니다.</p>
+              <Button onClick={() => toast({ title: '변경 사항을 저장했습니다.', description: '프로젝트 초안이 최신 상태입니다.', variant: 'success' })}>성공 Toast 보기</Button>
+            </article>
+            <article className="feedback-card">
+              <p className="stage-label">TOOLTIP</p>
+              <h3>공간을 차지하지 않는<br />짧은 설명.</h3>
+              <p>hover와 keyboard focus에서만 드러나, 처음 보는 기능의 의도를 보완합니다.</p>
+              <Tooltip content="공개 링크를 복사합니다." side="top">
+                <Button variant="secondary">링크 복사 <span aria-hidden="true">↗</span></Button>
+              </Tooltip>
+            </article>
+          </div>
+        </section>
+
+        <section className="section component-section" id="data-display" aria-labelledby="data-display-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">COMPONENT / 07</p>
+              <h2 id="data-display-title">Card · Table · Pagination</h2>
+            </div>
+            <code>admin ready</code>
+          </div>
+
+          <div className="metric-grid">
+            <Card>
+              <CardHeader>
+                <CardTitle>진행 중인 프로젝트</CardTitle>
+                <CardDescription>이번 주에 수정된 항목</CardDescription>
+              </CardHeader>
+              <CardContent><p className="metric-value">12 <small>개</small></p></CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>검토가 필요한 항목</CardTitle>
+                <CardDescription>다음 행동을 기다리는 목표</CardDescription>
+              </CardHeader>
+              <CardContent><p className="metric-value">04 <small>개</small></p></CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>이번 주 완료율</CardTitle>
+                <CardDescription>계획한 18개 행동 기준</CardDescription>
+              </CardHeader>
+              <CardContent><p className="metric-value">72 <small>%</small></p></CardContent>
+            </Card>
+          </div>
+
+          <div className="table-stage">
+            <Table>
+              <TableCaption>프로젝트 목록 {projects.length}개 중 {pagedProjects.length}개를 표시합니다.</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>프로젝트</TableHead>
+                  <TableHead>상태</TableHead>
+                  <TableHead>수정</TableHead>
+                  <TableHead>담당</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {pagedProjects.map((project) => (
+                  <TableRow key={project.name}>
+                    <TableCell><strong>{project.name}</strong></TableCell>
+                    <TableCell><Badge variant={project.variant}>{project.status}</Badge></TableCell>
+                    <TableCell>{project.updated}</TableCell>
+                    <TableCell>{project.owner}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <Pagination page={currentPage} totalPages={Math.ceil(projects.length / pageSize)} onPageChange={setCurrentPage} />
+          </div>
         </section>
       </section>
 
@@ -261,4 +416,8 @@ export function App() {
       </Dialog>
     </main>
   );
+}
+
+export function App() {
+  return <ToastProvider><Documentation /></ToastProvider>;
 }
