@@ -25,6 +25,13 @@
     --gpmh-color-on-action: var(--gpmh-color-neutral-0);
     --gpmh-color-danger: #c9362b;
     --gpmh-color-on-danger: var(--gpmh-color-neutral-0);
+    --gpmh-color-danger-subtle: #fff0ef;
+    --gpmh-color-warning: #996000;
+    --gpmh-color-warning-subtle: #fff7e7;
+    --gpmh-color-success: #287552;
+    --gpmh-color-success-subtle: #ecf8f1;
+    --gpmh-color-info: #216da6;
+    --gpmh-color-info-subtle: #edf7ff;
     --gpmh-color-focus: var(--gpmh-color-neutral-900);
 
     --gpmh-space-1: 4px;
