@@ -8,13 +8,17 @@
   },
   "scripts": {
     "dev": "pnpm --filter @gpmh/docs dev",
+    "storybook": "pnpm --filter @gpmh/storybook storybook",
+    "build-storybook": "pnpm --filter @gpmh/storybook build",
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",
     "check": "pnpm typecheck && pnpm build"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.7",
+    "@storybook/react-vite": "10.6.2",
     "@types/node": "^22.10.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "storybook": "10.6.2"
   }
 }

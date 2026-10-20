@@ -1,0 +1,26 @@
+:root {
+  color: var(--gpmh-color-text);
+  font-family: var(--gpmh-font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+
+.gpmh-story-frame {
+  margin: 0 auto;
+  max-width: 900px;
+  padding: var(--gpmh-space-6);
+  width: 100%;
+}
+
+.gpmh-story-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gpmh-space-3);
+}
+
+.gpmh-story-stack { display: grid; gap: var(--gpmh-space-4); }
+.gpmh-story-note { color: var(--gpmh-color-text-subtle); font-size: 13px; line-height: 1.6; margin: 0; }
